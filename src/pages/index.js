@@ -1,32 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Link from 'gatsby-link'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Link from 'gatsby-link';
 
 export default class IndexPage extends React.Component {
   render() {
-    const { data } = this.props
-    const { edges: posts } = data.allMarkdownRemark
+    const { data } = this.props;
+    const { edges: posts } = data.allMarkdownRemark;
 
     return (
-      <section className="section">
+      <section className="section measure-wide center">
         <div className="container">
           <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">Latest Stories</h1>
+            <h1 className="has-text-weight-bold is-size-2 tc mt5">
+              Latest Stories
+            </h1>
           </div>
           {posts
             .filter(post => post.node.frontmatter.templateKey === 'blog-post')
             .map(({ node: post }) => (
-              <div
-                className="content"
-                style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
-                key={post.id}
-              >
+              <div className="content mv5 lh-copy" key={post.id}>
                 <p>
-                  <Link className="has-text-primary" to={post.fields.slug}>
+                  <Link className="f3 pink" to={post.fields.slug}>
                     {post.frontmatter.title}
                   </Link>
-                  <span> &bull; </span>
-                  <small>{post.frontmatter.date}</small>
+                  <div className="mt3">{post.frontmatter.date}</div>
                 </p>
                 <p>
                   {post.excerpt}
@@ -40,17 +37,17 @@ export default class IndexPage extends React.Component {
             ))}
         </div>
       </section>
-    )
+    );
   }
 }
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  }),
-}
+      edges: PropTypes.array
+    })
+  })
+};
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -71,4 +68,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
